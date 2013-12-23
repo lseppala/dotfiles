@@ -1,0 +1,6 @@
+#!/bin/sh
+
+tmux has-session -t hidden 2>/dev/null &&
+  #tmux choose-list -l $(tmux list-windows -F '#{window_name}' -t hidden | tr '\n' ',') 'join-pane -s hidden:%%' ||
+  tmux choose-list -l $(tmux list-windows -F '#{window_name}.#{pane_id}' -t hidden | tr '\n' ',') "run-shell 'echo %% | cut -f 2 -d . - | xargs -n 1 tmux join-pane -s'" ||
+  echo "No hidden session exists"
