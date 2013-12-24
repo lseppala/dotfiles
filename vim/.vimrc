@@ -6,6 +6,7 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
+
 call vundle#rc()
 
 " let Vundle manage Vundle
@@ -55,6 +56,7 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'nanotech/jellybeans.vim'
 Bundle 'pangloss/vim-javascript'
 Bundle 'vim-ruby/vim-ruby'
+Bundle 'godlygeek/tabular'
 " Make vim and tmux play nicely together
 Bundle 'christoomey/vim-tmux-navigator'
 
@@ -63,7 +65,7 @@ colo solarized
 "let g:solarized_termtrans=1
 "let g:solarized_termcolors=16
 
-set bg=dark
+set bg=light
 noremap ;; :%s:\v::<Left><Left>
 noremap ;l :%s:::<Left>
 nnoremap <silent> <F2> :TagbarOpen j<CR>
@@ -73,6 +75,9 @@ map <F3> :NERDTreeToggle<CR>
 set noexrc
 set wildignore=*.swp,*.pyc,*.tmp
 set t_Co=256
+
+set number
+set relativenumber
 
 let g:CommandTAcceptSelectionSplitMap=['<C-g>']
 
@@ -179,7 +184,6 @@ nnoremap Y y$
 
 
 nnoremap <leader><tab> <C-w><C-v><C-w>w:Scratch<cr>
-nmap <silent> <leader>nu :NumbersToggle<CR>
 
 nmap SS <ESC>:mksession! ~/.vim/Session.vim<CR>
 nmap SO <ESC>:so ~/.vim/Session.vim<CR>
