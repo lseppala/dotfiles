@@ -59,7 +59,8 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'godlygeek/tabular'
 " Make vim and tmux play nicely together
 Bundle 'christoomey/vim-tmux-navigator'
-
+Bundle 'xaviershay/tslime.vim'
+Bundle 'nelstrom/vim-qargs'
 
 colo solarized
 "let g:solarized_termtrans=1
@@ -255,3 +256,4 @@ set splitbelow
 nnoremap <leader>ct :silent !ctags -R . <CR><CR>
 
 
+map <leader>lf :call Send_to_Tmux("(load-file \"".expand("%")."\")\n")<CR>
