@@ -38,3 +38,9 @@ source $ZSH/oh-my-zsh.sh
 bindkey "^r" history-incremental-search-backward
 unsetopt correct_all
 setopt extendedglob
+
+gssh() {
+    user=$(echo $1 | cut -f 1 -d '@')
+    host=$(echo $1 | cut -f 2 -d '@')
+    /usr/local/bin/ssh -v -R /home/$user/.gnupg/S.gpg-agent:$HOME/.gnupg/S.gpg-agent $user@$host
+}

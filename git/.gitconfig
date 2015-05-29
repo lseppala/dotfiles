@@ -1,7 +1,7 @@
 [core]
-	editor = vim
-	autocrlf = input
-	excludesfile = ~/.gitignore
+    editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore
 [color]
     branch = auto
     diff = auto
@@ -24,6 +24,7 @@
     ca = commit -a
     cm = commit -m
     cma = commit -a -m
+    cam = commit --amend
 
     rhh = reset --hard HEAD
 
@@ -40,7 +41,7 @@
     r = reset
     l = log
     p = push
-    pr = push --rebase
+    pr = pull --rebase
 
     ri = rebase --interactive
 
@@ -48,13 +49,23 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     lg = log -15 --color --graph --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d%Creset %s %Cred(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
+    an = annex
+
+    h = rev-parse HEAD
+
 [branch.current.dev]
     rebase = true
 [branch.current.qa]
     rebase = true
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [merge]
     tool = vimdiff
 [push]
-	default = tracking
+  default = tracking
+[user]
+  name = Lane Seppala
+[gpg]
+  program = gpg2
+[github]
+    user = lseppala
