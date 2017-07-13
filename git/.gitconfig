@@ -36,6 +36,7 @@
     d = diff
     a = add
     co = checkout
+    cob = checkout -b
     b = branch
     f = fetch
     r = reset
@@ -52,6 +53,9 @@
     an = annex
 
     h = rev-parse HEAD
+    hs = rev-parse --short HEAD
+    rip = ! git reset --hard origin/"$(git rev-parse --abbrev-ref HEAD)"
+    oops = ! git commit --amend -C $(git rev-parse HEAD) && git push --force
 
 [branch.current.dev]
     rebase = true
@@ -62,7 +66,7 @@
 [merge]
     tool = vimdiff
 [push]
-  default = tracking
+  default = current
 [user]
   name = Lane Seppala
 [gpg]
