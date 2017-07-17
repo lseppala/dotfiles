@@ -44,3 +44,29 @@ gssh() {
     host=$(echo $1 | cut -f 2 -d '@')
     /usr/local/bin/ssh -v -R /home/$user/.gnupg/S.gpg-agent:$HOME/.gnupg/S.gpg-agent $user@$host
 }
+
+
+export NIX_CFLAGS_LINK="-L/usr/lib"
+export NIX_CFLAGS_COMPILE="-idirafter /usr/include"
+
+ghci-with() {
+    nix-shell -p "haskellPackages.ghcWithPackages (pkgs: with pkgs; [$*])" \
+        --command 'ghci'
+}
+export PKG_CONFIG_PATH="$HOME/.nix-profile/lib/pkgconfig"
+
+
+hgrep() {
+    search=$(for term in $@; do printf "| grep -- '$term' "; done)
+    eval "history $search"
+}
+
+export SAVEHIST=1000000
+
+alias utc="date -u +'%Y-%m-%dT%H:%M:%SZ'"
+
+if `/usr/bin/which -s rbenv`; then
+    eval "$(rbenv init -)"
+fi
+
+export PATH="$HOME/.yarn/bin:$PATH"

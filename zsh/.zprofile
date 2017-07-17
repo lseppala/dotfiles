@@ -14,3 +14,15 @@ export GPG_TTY=$(tty)
 if [ -d ~/.nix-profile ]; then
   . ~/.nix-profile/etc/profile.d/nix.sh
 fi
+
+if [ -d $HOME/.usr ]; then
+  export PATH=$HOME/.usr/bin:$PATH
+fi
+
+if [ -d $HOME/.local ]; then
+  export PATH=$HOME/.local/bin:$PATH
+fi
+
+export NIX_PATH=repo=$HOME/dev/public/nixpkgs:$NIX_PATH
+
+export PATH="$HOME/.cargo/bin:$PATH"
