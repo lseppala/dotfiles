@@ -7,6 +7,7 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'neomake/neomake'
 Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'janko-m/vim-test'
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -16,7 +17,7 @@ Plug 'lord-garbage/vimtux'
 Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
 Plug 'romainl/flattened'
-Plug 'molokai'
+Plug 'junegunn/seoul256.vim'
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
@@ -25,11 +26,11 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'ag.vim'
+Plug 'rking/ag.vim'
 
 "" Editing
 "" Auto-complete
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 "" C-do
 Plug 'Peeja/vim-cdo'
@@ -90,6 +91,29 @@ Plug 'embear/vim-localvimrc'
 " Matches HTML tags
 Plug 'Valloric/MatchTagAlways'
 
+"" Aligning
+Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
+
+"" Code Formatting
+"Plug 'w0rp/ale'
+Plug 'sbdchd/neoformat'
+
+"" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+"" CTags
+Plug 'fntlnz/atags.vim'
+
+"" Perl
+Plug 'vim-perl/vim-perl'
+
+"" Go
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+"" Distraction-free writing
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
@@ -151,7 +175,8 @@ set winheight=999
 " From Damian Conway's OSCON talk
 "http://www.youtube.com/watch?v= Hm36-na4-4
 "
-exec "set listchars=tab:\uBB\uA0,trail:\uB7"
+set listchars=tab:│\ ,trail:·
+"exec "set listchars=tab:\uBB\uA0,trail:\uB7"
 set list
 
 highlight ColorColumn ctermbg=red
@@ -163,8 +188,10 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme OceanicNext
+colorscheme seoul256-light
+"colorscheme OceanicNext
 
+set clipboard+=unnamedplus
 
 
 """"""""""
@@ -189,6 +216,7 @@ vmap <silent> <leader>[ :w !tmux load-buffer -<CR><CR>
 
 " Insert mode
 inoremap jj <esc>
+inoremap ;; ;<esc>
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -209,6 +237,12 @@ map <leader>sr <Plug>SetTmuxVars
 
 " Ag
 nnoremap <leader>ag :exec("Ag! '\\b".expand("<cword>")."\\b'")<CR>
+
+
+" Python
+
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 "" Ctrl-P
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
@@ -232,9 +266,39 @@ map <F3> :NERDTreeFind<CR>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 
+
+"" vim-easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
+" Local vimrc
+let g:localvimrc_persistent=1
+
+
+" only build tags for files not in .gitignore
+let g:atags_build_commands_list = [
+    \ 'ag -g "" | ctags -L - --fields=+l -f tags.tmp',
+    \ 'awk "length($0) < 400" tags.tmp > tags',
+    \ 'rm tags.tmp'
+    \ ]
+
+" vim-test
+let test#strategy = "dispatch"
+
+nmap <silent> <leader>tt :TestFile<CR>
+nmap <silent> <leader>td :TestLast<CR>
+nmap <silent> <leader>tg :TestVisit<CR>
+
 """"""""""""
 " FILETYPE "
 """"""""""""
+
+" Generate ctags on save
+" autocmd BufWritePost * call atags#generate()
 
 " Haskell
 au FileType haskell nmap <leader>sh :%!stylish-haskell<CR>
@@ -249,12 +313,25 @@ autocmd Filetype ruby setlocal softtabstop=2 shiftwidth=2 tabstop=2
 " Javascript
 autocmd! Filetype javascript autocmd! BufWritePost * Neomake
 
+" Perl
+autocmd! Filetype perl autocmd! BufWritePost * Neomake
+autocmd! Filetype perl setlocal keywordprg=:sp\ \|\ :te\ perldoc
+autocmd Filetype perl setlocal noexpandtab
+let perl_sub_signatures = 1
+
 " HTML
 autocmd! Filetype html autocmd! BufWritePost * Neomake
+
+"YAML
+autocmd Filetype yaml setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+autocmd Filetype ansible setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab nosmartindent
+
+" Golang
+autocmd! Filetype go autocmd! BufWritePost * Neomake
+autocmd! Filetype go setlocal keywordprg=:GoDoc
 """""""""""""
 " FANCINESS "
 """""""""""""
-
 
 
 " Find and replace with Ag
@@ -269,7 +346,9 @@ function! AgFindReplace()
 endfunction
 map <leader>gr :call AgFindReplace()<cr>
 
-
+let g:deoplete#enable_at_startup = 1
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 let g:codi#interpreters = {
 		   \ 'haskell': {
@@ -278,3 +357,9 @@ let g:codi#interpreters = {
 		       \ },
 		   \ }
 
+
+"naviation in terminal windows
+tnoremap <C-h> <C-\><C-n><C-h>
+tnoremap <C-j> <C-\><C-n><C-j>
+tnoremap <C-k> <C-\><C-n><C-k>
+tnoremap <C-l> <C-\><C-n><C-l>
