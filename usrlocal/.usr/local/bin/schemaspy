@@ -1,0 +1,8 @@
+#! /bin/sh
+
+POSTGRES_LIB="-dp $HOME/.usr/local/share/postgresql-42.1.1.jar"
+
+# Use the Quartz rendered. GD causes a segfault on macOS
+RENDERER='-renderer :quartz'
+
+java -jar "$HOME/.usr/local/share/schemaSpy_5.0.0.jar" $POSTGRES_LIB $RENDERER "$@"
