@@ -311,7 +311,7 @@ autocmd! Filetype ruby autocmd! BufWritePost * Neomake
 autocmd Filetype ruby setlocal softtabstop=2 shiftwidth=2 tabstop=2
 
 " Javascript
-autocmd! Filetype javascript autocmd! BufWritePost * Neomake
+autocmd! Filetype javascript autocmd! BufWritePre * Neoformat
 
 " Perl
 autocmd! Filetype perl autocmd! BufWritePost * Neomake
