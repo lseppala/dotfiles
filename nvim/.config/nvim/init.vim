@@ -1,3 +1,8 @@
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+      \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.config/nvim/plugged')
 
 " Processes
@@ -23,7 +28,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'scrooloose/nerdcommenter'
 
 "" File navigation
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kien/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'rking/ag.vim'
@@ -67,9 +72,9 @@ Plug 'mattn/webapi-vim'
 Plug 'pearofducks/ansible-vim'
 
 "" Haskell
-Plug 'neovimhaskell/haskell-vim'
-Plug 'eagletmt/ghcmod-vim'
-Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'ndmitchell/ghcid', { 'for': 'haskell', 'rtp': 'plugins/nvim' }
 
 "" Markdown
 Plug 'suan/vim-instant-markdown'
@@ -78,18 +83,18 @@ Plug 'suan/vim-instant-markdown'
 Plug 'metakirby5/codi.vim'
 
 "" Terraform
-Plug 'hashivim/vim-terraform'
+"Plug 'hashivim/vim-terraform'
 
 
 "" Typescript
-Plug 'leafgarland/typescript-vim'
+"Plug 'leafgarland/typescript-vim'
 
 "" Local RC
-Plug 'embear/vim-localvimrc'
+"Plug 'embear/vim-localvimrc'
 
 "" HTML
 " Matches HTML tags
-Plug 'Valloric/MatchTagAlways'
+Plug 'Valloric/MatchTagAlways', { 'for': 'html' }
 
 "" Aligning
 Plug 'godlygeek/tabular'
@@ -107,10 +112,10 @@ Plug 'honza/vim-snippets'
 Plug 'fntlnz/atags.vim'
 
 "" Perl
-Plug 'vim-perl/vim-perl'
+Plug 'vim-perl/vim-perl', { 'for': 'perl' }
 
 "" Go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 
 "" Distraction-free writing
 Plug 'junegunn/goyo.vim'
@@ -188,8 +193,8 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme seoul256-light
-"colorscheme OceanicNext
+"colorscheme seoul256-light
+colorscheme OceanicNext
 
 set clipboard+=unnamedplus
 
