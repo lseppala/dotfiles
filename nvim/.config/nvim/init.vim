@@ -9,7 +9,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Async build
-Plug 'neomake/neomake'
+Plug 'neomake/neomake', { 'on': 'Neomake' }
 Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'janko-m/vim-test'
@@ -19,16 +19,17 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'lord-garbage/vimtux'
 
 "" Colorschemes
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
-Plug 'romainl/flattened'
-Plug 'junegunn/seoul256.vim'
+"Plug 'romainl/flattened'
+"Plug 'junegunn/seoul256.vim'
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 
 "" File navigation
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 Plug 'kien/ctrlp.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'rking/ag.vim'
@@ -97,7 +98,7 @@ Plug 'metakirby5/codi.vim'
 Plug 'Valloric/MatchTagAlways', { 'for': 'html' }
 
 "" Aligning
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'junegunn/vim-easy-align'
 
 "" Code Formatting
@@ -105,8 +106,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'sbdchd/neoformat'
 
 "" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 
 "" CTags
 Plug 'fntlnz/atags.vim'
@@ -116,9 +119,17 @@ Plug 'vim-perl/vim-perl', { 'for': 'perl' }
 
 "" Go
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+"" requires gocode executable. go get -u github.com/stamblerre/gocode
+"Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
 
 "" Distraction-free writing
 Plug 'junegunn/goyo.vim'
+
+" UNIX shell commands
+Plug 'tpope/vim-eunuch'
+
+" auto-close and pair parens, brackets, etc
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
@@ -193,7 +204,6 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-"colorscheme seoul256-light
 colorscheme OceanicNext
 
 set clipboard+=unnamedplus
@@ -334,6 +344,7 @@ autocmd Filetype ansible setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
 " Golang
 autocmd! Filetype go autocmd! BufWritePost * Neomake
 autocmd! Filetype go setlocal keywordprg=:GoDoc
+let g:go_fmt_command = "goimports"
 """""""""""""
 " FANCINESS "
 """""""""""""
@@ -368,3 +379,10 @@ tnoremap <C-h> <C-\><C-n><C-h>
 tnoremap <C-j> <C-\><C-n><C-j>
 tnoremap <C-k> <C-\><C-n><C-k>
 tnoremap <C-l> <C-\><C-n><C-l>
+
+
+" neosnippet mappings
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
