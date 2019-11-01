@@ -13,16 +13,23 @@ function install_homebrew() {
     fi
 }
 
+function stow_app_configs() {
+
+    # make .config directory
+    test -d $CONFIG_DIR || mkdir $CONFIG_DIR
+
+    for app in $CONFIG_APPS; do
+
+        echo "Stowing $app into $CONFIG_DIR/$app"
+        mkdir -p $CONFIG_DIR/$app
+        stow -t $CONFIG_DIR/$app -S $app
+    done
+}
+
+function make_gitconfig() {
+    stow -S git
+}
 
 install_homebrew
-
-# make .config directory
-test -d $CONFIG_DIR || mkdir $CONFIG_DIR
-
-for app in $CONFIG_APPS; do
-
-    echo "Stowing $app into $CONFIG_DIR/$app"
-    mkdir -p $CONFIG_DIR/$app
-    ./stow -t $CONFIG_DIR/$app -S $app
-done
-
+stow_app_configs
+make_gitconfig
