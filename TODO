@@ -1,0 +1,7 @@
+To enable fzf keybindings, you need to run
+
+```
+/usr/local/opt/fzf/install
+```
+
+after install
