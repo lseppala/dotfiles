@@ -54,8 +54,12 @@
 
     h = rev-parse HEAD
     hs = rev-parse --short HEAD
+    cb = rev-parse --abbrev-ref HEAD
     rip = ! git reset --hard origin/"$(git rev-parse --abbrev-ref HEAD)"
     oops = ! git commit --amend -C $(git rev-parse HEAD) && git push --force
+    rab = rebase --abort
+    rc = rebase --continue
+    p-f = push --force
 
 [branch.current.dev]
     rebase = true

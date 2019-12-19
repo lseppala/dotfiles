@@ -19,10 +19,10 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'lord-garbage/vimtux'
 
 "" Colorschemes
-"Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
-"Plug 'romainl/flattened'
-"Plug 'junegunn/seoul256.vim'
+Plug 'romainl/flattened'
+Plug 'junegunn/seoul256.vim'
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
@@ -129,7 +129,10 @@ Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-eunuch'
 
 " auto-close and pair parens, brackets, etc
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
+
+" Scratch buffer
+Plug 'mtth/scratch.vim'
 
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
@@ -191,7 +194,7 @@ set winheight=999
 " From Damian Conway's OSCON talk
 "http://www.youtube.com/watch?v= Hm36-na4-4
 "
-set listchars=tab:│\ ,trail:·
+set listchars=tab:▎\ ,trail:·
 "exec "set listchars=tab:\uBB\uA0,trail:\uB7"
 set list
 
@@ -204,7 +207,7 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme OceanicNext
+colorscheme flattened_light
 
 set clipboard+=unnamedplus
 
@@ -222,7 +225,8 @@ nnoremap <leader>ss :%s/\v\s+$//<cr><C-o>:noh<cr>
 noremap ;; :%s:\v::<Left><Left>
 noremap ;l :%s:::<Left>
 nnoremap <leader><leader> <C-^>
-nnoremap <leader>s :w<CR>
+nnoremap ;w :w<CR>
+nnoremap ;q :wq<CR>
 
 " Visual mode
 vmap > >gv
@@ -232,6 +236,7 @@ vmap <silent> <leader>[ :w !tmux load-buffer -<CR><CR>
 " Insert mode
 inoremap jj <esc>
 inoremap ;; ;<esc>
+inoremap <leader>w <C-o>:w<CR>
 
 
 """"""""""""""""""""""""""""""""""""""""""
@@ -344,6 +349,7 @@ autocmd Filetype ansible setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
 " Golang
 autocmd! Filetype go autocmd! BufWritePost * Neomake
 autocmd! Filetype go setlocal keywordprg=:GoDoc
+let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
 """""""""""""
 " FANCINESS "
@@ -382,7 +388,7 @@ tnoremap <C-l> <C-\><C-n><C-l>
 
 
 " neosnippet mappings
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
+imap <C-f>     <Plug>(neosnippet_expand_or_jump)
+smap <C-f>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-f>     <Plug>(neosnippet_expand_target)
 
