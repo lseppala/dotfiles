@@ -61,6 +61,8 @@
     rc = rebase --continue
     p-f = push --force
 
+    ribs = ! git rebase -i $(git merge-base $(git cb) master)
+
 [branch.current.dev]
     rebase = true
 [branch.current.qa]
@@ -81,3 +83,5 @@
     insteadOf = https://github.com/
 [ghi]
 	token = !security find-internet-password -a lseppala -s github.com -l 'ghi token' -w
+[branch]
+	sort = -authordate

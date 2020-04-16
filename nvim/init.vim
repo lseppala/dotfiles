@@ -8,6 +8,9 @@ call plug#begin('~/.config/nvim/plugged')
 " Processes
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
+" Fuzzy finder
+Plug '/usr/local/opt/fzf'
+
 " Async build
 Plug 'neomake/neomake', { 'on': 'Neomake' }
 Plug 'tpope/vim-dispatch'
@@ -37,6 +40,10 @@ Plug 'rking/ag.vim'
 "" Editing
 "" Auto-complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"" Tag List
+Plug 'liuchengxu/vista.vim'
 
 "" C-do
 Plug 'Peeja/vim-cdo'
@@ -78,10 +85,15 @@ Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'ndmitchell/ghcid', { 'for': 'haskell', 'rtp': 'plugins/nvim' }
 
 "" Markdown
-Plug 'suan/vim-instant-markdown'
+"Plug 'suan/vim-instant-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 "" Live coding
 Plug 'metakirby5/codi.vim'
+
+
+" File types
+Plug 'sheerun/vim-polyglot'
 
 "" Terraform
 "Plug 'hashivim/vim-terraform'
@@ -91,11 +103,13 @@ Plug 'metakirby5/codi.vim'
 "Plug 'leafgarland/typescript-vim'
 
 "" Local RC
-"Plug 'embear/vim-localvimrc'
+Plug 'embear/vim-localvimrc'
 
 "" HTML
 " Matches HTML tags
-Plug 'Valloric/MatchTagAlways', { 'for': 'html' }
+Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'javascript.jsx', 'typescript.tsx'] }
+" Auto-closes tags
+Plug 'alvan/vim-closetag', { 'for': ['html', 'javascript.jsx', 'typescript.tsx'] }
 
 "" Aligning
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
@@ -106,11 +120,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'sbdchd/neoformat'
 
 "" Snippets
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+"Plug 'Shougo/neosnippet.vim'
+"Plug 'Shougo/neosnippet-snippets'
 "Plug 'SirVer/ultisnips'
 "Plug 'honza/vim-snippets'
-
 "" CTags
 Plug 'fntlnz/atags.vim'
 
@@ -187,9 +200,9 @@ set winwidth=84
 " We have to have a winheight bigger than we want to set winminheight. But if
 " we set winheight to be huge before winminheight, the winminheight set will
 " fail.
-set winheight=10
-set winminheight=10
-set winheight=999
+"set winheight=10
+"set winminheight=10
+"set winheight=999
 
 " From Damian Conway's OSCON talk
 "http://www.youtube.com/watch?v= Hm36-na4-4
@@ -215,8 +228,6 @@ set clipboard+=unnamedplus
 """"""""""
 " REMAPS "
 """"""""""
-nmap , \
-
 " Normal mode
 nnoremap <CR> :noh<CR>
 nnoremap <space> :
@@ -313,6 +324,25 @@ nmap <silent> <leader>tt :TestFile<CR>
 nmap <silent> <leader>td :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
+
+" MatchTagAlways
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'javascript.jsx' : 1,
+    \ 'typescript.tsx' : 1,
+    \}
+
+" autoclose
+let g:closetag_emptyTags_caseSensitive = 1
+"" close tags in jsx/tsx files
+let g:closetag_regions =  {
+\ 'typescript.tsx': 'jsxRegion,tsxRegion',
+\ 'javascript.jsx': 'jsxRegion',
+\ }
+
 """"""""""""
 " FILETYPE "
 """"""""""""
@@ -351,6 +381,12 @@ autocmd! Filetype go autocmd! BufWritePost * Neomake
 autocmd! Filetype go setlocal keywordprg=:GoDoc
 let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
+
+
+" React Javscript & Typescript fixes for coc-tsserver
+autocmd BufRead,BufNewFile *.jsx set filetype=javascript.jsx
+autocmd BufRead,BufNewFile *.tsx set filetype=typescript.tsx
+
 """""""""""""
 " FANCINESS "
 """""""""""""
@@ -361,16 +397,16 @@ let g:go_fmt_command = "goimports"
 function! AgFindReplace()
     let find = input('Find: ')
     let replace = input('Replacement: ')
-    exec "Ag! '\\b" . find . "\\b'"
+    exec "Ag! '" . find . "'"
     exec "Cdo s:" . find . ":" . replace
     Cdo write
     cclose
 endfunction
 map <leader>gr :call AgFindReplace()<cr>
 
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 " deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 let g:codi#interpreters = {
 		   \ 'haskell': {
@@ -388,7 +424,96 @@ tnoremap <C-l> <C-\><C-n><C-l>
 
 
 " neosnippet mappings
-imap <C-f>     <Plug>(neosnippet_expand_or_jump)
-smap <C-f>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-f>     <Plug>(neosnippet_expand_target)
+"imap <C-f>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-f>     <Plug>(neosnippet_expand_or_jump)
+"xmap <C-f>     <Plug>(neosnippet_expand_target)
+imap <C-f>     <C-y>
+smap <C-f>     <C-y>
+xmap <C-f>     <C-y>
 
+" Vista config
+let g:vista_default_executive = 'coc'
+map <F2> :Vista<CR>
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_fzf_preview = ['right:50%']
+
+ "autocmd FileType vista,vista_kind nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
+
+" -------------------------------------------------------------------------------------------------
+" coc.nvim default settings
+" -------------------------------------------------------------------------------------------------
+"
+let g:coc_global_extensions = ['coc-json', 'coc-snippets']
+
+" Better display for messages
+set cmdheight=2
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> ge <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> <localleader>k :call CocAction('doHover')<CR>
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>rr <Plug>(coc-refactor)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+" Show all diagnostics
+nnoremap <silent> <leader><space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <leader><space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <leader><space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <leader><space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader><space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+"nnoremap <silent> <leader><space>j  :<C-u>CocNext<CR>
+"" Do default action for previous item.
+"nnoremap <silent> <leader><space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <leader><space>p  :<C-u>CocListResume<CR>
+
+" disable vim-go :GoDef short cut (gd)
+" this is handled by LanguageClient [LC]
+let g:go_def_mapping_enabled = 0
+
+" Show signature help on placeholder jump
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')

@@ -40,6 +40,7 @@ brew "youtube-dl"
 cask "docker"
 cask "font-source-code-pro"
 cask "virtualbox"
+brew "yarn"
 cask "stek29/idevice/jtool2"
 mas "1Blocker", id: 1107421413
 mas "Dark Reader for Safari", id: 1438243180
