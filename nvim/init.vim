@@ -9,10 +9,11 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Fuzzy finder
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 " Async build
-Plug 'neomake/neomake', { 'on': 'Neomake' }
+Plug 'neomake/neomake'
 Plug 'tpope/vim-dispatch'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'janko-m/vim-test'
@@ -33,9 +34,12 @@ Plug 'tpope/vim-commentary'
 
 "" File navigation
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
-Plug 'kien/ctrlp.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'rking/ag.vim'
+"Plug 'kien/ctrlp.vim'
+"Plug 'FelikZ/ctrlp-py-matcher'
+"Plug 'rking/ag.vim'
+
+" Find and replace
+Plug 'mhinz/vim-grepper'
 
 "" Editing
 "" Auto-complete
@@ -94,6 +98,7 @@ Plug 'metakirby5/codi.vim'
 
 " File types
 Plug 'sheerun/vim-polyglot'
+Plug 'google/vim-jsonnet'
 
 "" Terraform
 "Plug 'hashivim/vim-terraform'
@@ -132,6 +137,7 @@ Plug 'vim-perl/vim-perl', { 'for': 'perl' }
 
 "" Go
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'sebdah/vim-delve', { 'for': 'go'}
 "" requires gocode executable. go get -u github.com/stamblerre/gocode
 "Plug 'deoplete-plugins/deoplete-go', { 'do': 'make' }
 
@@ -146,6 +152,19 @@ Plug 'tpope/vim-eunuch'
 
 " Scratch buffer
 Plug 'mtth/scratch.vim'
+
+" Quake-style terminal window
+Plug 'Lenovsky/nuake'
+
+" Wrapper around terminal functions
+Plug 'kassio/neoterm'
+
+" Auto layout
+"
+"Plug 'zhaocai/GoldenView.Vim'
+"
+" Split resize mode
+Plug 'simeji/winresizer'
 
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
@@ -162,7 +181,7 @@ endif
 set nobackup
 set noswapfile
 set number
-set relativenumber
+"set relativenumber
 set noexrc
 set nowrap
 set tildeop
@@ -176,7 +195,7 @@ set nottimeout " Don't wait for a byte sequence
 
 " Tab and shift
 set incsearch
-set expandtab
+set noexpandtab
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
@@ -223,6 +242,8 @@ endif
 colorscheme flattened_light
 
 set clipboard+=unnamedplus
+" enable mouse in normal, insert, and command line modes
+set mouse=nic
 
 
 """"""""""
@@ -267,7 +288,7 @@ vmap <leader>st <Plug>SendSelectionToTmux
 map <leader>sr <Plug>SetTmuxVars
 
 " Ag
-nnoremap <leader>ag :exec("Ag! '\\b".expand("<cword>")."\\b'")<CR>
+nnoremap <leader>ag :exec("Ag \\b".expand("<cword>")."\\b")<CR>
 
 
 " Python
@@ -276,14 +297,19 @@ let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
 "" Ctrl-P
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .DS_Store
-      \ -g ""'
+"let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      "\ --ignore .git
+      "\ --ignore .DS_Store
+      "\ -g ""'
 
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
-nnoremap <leader>p :CtrlPBuffer<cr>
+"nnoremap <leader>p :CtrlPBuffer<cr>
+
+" fzf
+nnoremap <C-p> :Files<CR>
+nnoremap <leader>b :Buffers<CRg
+nnoremap <leader>rg :Rg<CRg
 
 " Dash
 nmap <silent> <leader>d <Plug>DashSearch
@@ -297,6 +323,10 @@ map <F3> :NERDTreeFind<CR>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 
+" Nuake
+nnoremap <F5> :Nuake<CR>
+inoremap <F5> <C-\><C-n>:Nuake<CR>
+tnoremap <F5> <C-\><C-n>:Nuake<CR>
 
 "" vim-easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -318,9 +348,13 @@ let g:atags_build_commands_list = [
     \ ]
 
 " vim-test
-let test#strategy = "dispatch"
+let test#strategy = "neoterm"
+let g:neoterm_default_mod = "botright 30"
+let g:neoterm_autoscroll = 1
 
-nmap <silent> <leader>tt :TestFile<CR>
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>ts :TestSuite<CR>
 nmap <silent> <leader>td :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
@@ -361,7 +395,10 @@ autocmd! Filetype ruby autocmd! BufWritePost * Neomake
 autocmd Filetype ruby setlocal softtabstop=2 shiftwidth=2 tabstop=2
 
 " Javascript
-autocmd! Filetype javascript autocmd! BufWritePre * Neoformat
+"autocmd! Filetype javascript autocmd! BufWritePre * Neoformat
+
+" Markdown
+autocmd! Filetype markdown autocmd! BufWritePre * Neoformat
 
 " Perl
 autocmd! Filetype perl autocmd! BufWritePost * Neomake
@@ -397,7 +434,7 @@ autocmd BufRead,BufNewFile *.tsx set filetype=typescript.tsx
 function! AgFindReplace()
     let find = input('Find: ')
     let replace = input('Replacement: ')
-    exec "Ag! '" . find . "'"
+    exec "Grepper -tool rg '" . find . "'"
     exec "Cdo s:" . find . ":" . replace
     Cdo write
     cclose
@@ -440,6 +477,13 @@ let g:vista#renderer#icons = {
 \  }
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista_fzf_preview = ['right:50%']
+
+" GoldenView config
+"let g:goldenview__enable_default_mapping = 0
+"nmap <silent> <C-S> <Plug>GoldenViewSplit
+"nmap <silent> <C-M> <Plug>GoldenViewSwitchMain
+"nmap <silent> <C-N>  <Plug>GoldenViewNext
+"nmap <silent> <C-P>  <Plug>GoldenViewPrevious
 
  "autocmd FileType vista,vista_kind nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
 

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AlternateMouseScroll</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>ApplePressAndHoldEnabled</key>
@@ -39,7 +41,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/dotfiles/iterm2</string>
+	<string>/Applications</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
@@ -84,17 +86,17 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>640 691 400 129 0 0 1680 1050 </string>
+	<string>4840 1303 400 129 3360 0 3360 1867 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>530 493 620 392 0 0 1680 1050 </string>
+	<string>1370 1106 620 392 0 0 3360 1867 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>230 810 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 0 3360 1890 0 0 3360 1867 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 0 3840 2160 0 0 3840 2137 </string>
+	<string>0 1329 745 538 0 0 3360 1867 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>306 300 650 513 0 0 2560 1417 </string>
+	<string>434 409 745 538 0 0 3360 1867 </string>
 	<key>NeverWarnAboutShortLivedSessions_4A93637F-1F0E-40EC-BED3-3E4FE696C257</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_4A93637F-1F0E-40EC-BED3-3E4FE696C257_selection</key>
@@ -931,6 +933,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>4</integer>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -1690,6 +1694,7 @@
 	<array>
 		<string>3.3.9</string>
 		<string>3.3.8</string>
+		<string>3.3.11</string>
 		<string>3.3.7</string>
 		<string>3.3.6</string>
 	</array>
@@ -1709,23 +1714,23 @@
 	<key>NoSyncFrame_SessionsPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {2560, 1440}}</string>
+		<string>{{0, 0}, {3360, 1890}}</string>
 		<key>topLeft</key>
-		<string>{977, 1209}</string>
+		<string>{269, 595}</string>
 	</dict>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {3360, 1890}}</string>
+		<string>{{3360, 0}, {3360, 1890}}</string>
 		<key>topLeft</key>
-		<string>{240, 696}</string>
+		<string>{3610, 1383}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>D9BD9E47-E6A3-47A1-AC03-C6889ADB6722</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>27</integer>
+	<integer>37</integer>
 	<key>NoSyncNewTabFromTmuxOpensTmux</key>
 	<true/>
 	<key>NoSyncNewTabFromTmuxOpensTmux_selection</key>
@@ -2568,13 +2573,13 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-04-03T15:17:15Z</date>
+	<date>2020-07-05T18:36:59Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
-	<integer>543881603</integer>
+	<integer>3199493713</integer>
 	<key>SUUpdateRelaunchingMarker</key>
-	<false/>
+	<true/>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
@@ -2613,7 +2618,7 @@
 	<key>UseLionStyleFullscreen</key>
 	<false/>
 	<key>UseMetal</key>
-	<true/>
+	<false/>
 	<key>UseTmuxStatusBar</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
@@ -2623,7 +2628,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.9</string>
+	<string>3.3.11</string>
 	<key>metalMaximizeThroughput</key>
 	<true/>
 	<key>preferIntegratedGPU</key>
