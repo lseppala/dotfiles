@@ -23,10 +23,11 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'lord-garbage/vimtux'
 
 "" Colorschemes
-Plug 'morhetz/gruvbox'
 Plug 'mhartington/oceanic-next'
 Plug 'romainl/flattened'
 Plug 'junegunn/seoul256.vim'
+Plug 'arcticicestudio/nord-vim' " https://www.nordtheme.com
+Plug 'jonathanfilip/vim-lucius' " https://twitter.com/garybernhardt/status/1298307925861994497
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
@@ -239,7 +240,11 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme flattened_light
+"colorscheme flattened_dark
+colorscheme nord
+"let g:lucius_contrast="high"
+"colorscheme lucius
+
 
 set clipboard+=unnamedplus
 " enable mouse in normal, insert, and command line modes
@@ -288,7 +293,7 @@ vmap <leader>st <Plug>SendSelectionToTmux
 map <leader>sr <Plug>SetTmuxVars
 
 " Ag
-nnoremap <leader>ag :exec("Ag \\b".expand("<cword>")."\\b")<CR>
+nnoremap <leader>ag :exec("Rg \\b".expand("<cword>")."\\b")<CR>
 
 
 " Python
@@ -308,8 +313,8 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 
 " fzf
 nnoremap <C-p> :Files<CR>
-nnoremap <leader>b :Buffers<CRg
-nnoremap <leader>rg :Rg<CRg
+nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>rg :exec("Rg \\b".expand("<cword>")."\\b")<CR>
 
 " Dash
 nmap <silent> <leader>d <Plug>DashSearch

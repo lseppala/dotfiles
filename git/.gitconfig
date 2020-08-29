@@ -63,6 +63,8 @@
 
     ribs = ! git rebase -i $(git merge-base $(git cb) master)
 
+    connect = ! git branch --set-upstream-to=origin/$(git cb) $(git cb)
+
 [branch.current.dev]
     rebase = true
 [branch.current.qa]
