@@ -167,6 +167,11 @@ Plug 'kassio/neoterm'
 " Split resize mode
 Plug 'simeji/winresizer'
 
+
+" Vimwiki
+
+Plug 'vimwiki/vimwiki'
+
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
 " due to terminfo issues
@@ -496,7 +501,15 @@ let g:vista_fzf_preview = ['right:50%']
 " coc.nvim default settings
 " -------------------------------------------------------------------------------------------------
 "
-let g:coc_global_extensions = ['coc-json', 'coc-snippets']
+let g:coc_global_extensions = [
+	\'coc-json',
+	\'coc-snippets',
+	\'coc-highlight',
+	\'coc-styled-components',
+	\'coc-tsserver',
+	\]
+
+"coc-snippets", "coc-styled-components"]
 
 " Better display for messages
 set cmdheight=2
