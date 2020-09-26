@@ -28,6 +28,8 @@ Plug 'romainl/flattened'
 Plug 'junegunn/seoul256.vim'
 Plug 'arcticicestudio/nord-vim' " https://www.nordtheme.com
 Plug 'jonathanfilip/vim-lucius' " https://twitter.com/garybernhardt/status/1298307925861994497
+Plug 'artanikin/vim-synthwave84'
+Plug 'TroyFletcher/vim-colors-synthwave'
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
@@ -246,7 +248,8 @@ if (has("termguicolors"))
 endif
 
 "colorscheme flattened_dark
-colorscheme nord
+"colorscheme nord
+colorscheme synthwave84
 "let g:lucius_contrast="high"
 "colorscheme lucius
 
