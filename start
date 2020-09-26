@@ -1,5 +1,8 @@
 #! /bin/sh
 
+set -u
+set -e
+
 
 OS_NAME=$(uname -s)
 CONFIG_DIR=~/.config
@@ -7,8 +10,7 @@ CONFIG_APPS="nvim fish ranger"
 
 function install_homebrew() {
     if [ $OS_NAME = 'Darwin' ] && ! which -s brew; then
-        /usr/bin/ruby -e \
-            "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
         brew bundle install
     fi
 }
