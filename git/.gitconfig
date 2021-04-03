@@ -87,3 +87,5 @@
 	token = !security find-internet-password -a lseppala -s github.com -l 'ghi token' -w
 [branch]
 	sort = -authordate
+[init]
+	defaultBranch = main

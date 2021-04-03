@@ -73,7 +73,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 "" Undo tree
-Plug 'vim-scripts/Gundo'
+Plug 'simnalamburt/vim-mundo'
 
 "" Dash
 Plug 'rizzatti/dash.vim'
@@ -147,6 +147,10 @@ Plug 'sebdah/vim-delve', { 'for': 'go'}
 "" Distraction-free writing
 Plug 'junegunn/goyo.vim'
 
+" Plugin for hard and soft wrapping
+" https://github.com/reedes/vim-pencil
+Plug 'reedes/vim-pencil'
+
 " UNIX shell commands
 Plug 'tpope/vim-eunuch'
 
@@ -172,7 +176,7 @@ Plug 'simeji/winresizer'
 
 " Vimwiki
 
-Plug 'vimwiki/vimwiki'
+"Plug 'vimwiki/vimwiki'
 
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
@@ -197,6 +201,11 @@ set history=1000
 set ruler
 set laststatus=2
 set hidden
+
+" Do not redraw screen in the middle of a macro. Makes them complete faster.
+set lazyredraw
+
+set undofile "Persistent undo
 
 
 set nottimeout " Don't wait for a byte sequence
