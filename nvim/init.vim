@@ -29,7 +29,6 @@ Plug 'junegunn/seoul256.vim'
 Plug 'arcticicestudio/nord-vim' " https://www.nordtheme.com
 Plug 'jonathanfilip/vim-lucius' " https://twitter.com/garybernhardt/status/1298307925861994497
 Plug 'artanikin/vim-synthwave84'
-Plug 'TroyFletcher/vim-colors-synthwave'
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
@@ -85,6 +84,8 @@ Plug 'mattn/webapi-vim'
 
 "" Ansible
 Plug 'pearofducks/ansible-vim'
+
+Plug 'rodjek/vim-puppet'
 
 "" Haskell
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -173,10 +174,19 @@ Plug 'kassio/neoterm'
 " Split resize mode
 Plug 'simeji/winresizer'
 
+" Generate JsDoc from function signature with :JsDoc
+Plug 'heavenshell/vim-jsdoc', { 
+  \ 'for': ['javascript', 'javascript.jsx','typescript'], 
+  \ 'do': 'make install'
+\}
+
 
 " Vimwiki
 
 "Plug 'vimwiki/vimwiki'
+
+" Drawing boxes
+Plug 'gyim/vim-boxdraw'
 
 call plug#end()
 " Stupid fix because nvim is getting <BS> for C-h
@@ -256,16 +266,16 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+colorscheme OceanicNext
 "colorscheme flattened_dark
 "colorscheme nord
-colorscheme synthwave84
+"colorscheme synthwave84
 "let g:lucius_contrast="high"
 "colorscheme lucius
 
-
 set clipboard+=unnamedplus
 " enable mouse in normal, insert, and command line modes
-set mouse=nic
+"set mouse=nic
 
 
 """"""""""
@@ -380,6 +390,12 @@ nmap <silent> <leader>ts :TestSuite<CR>
 nmap <silent> <leader>td :TestLast<CR>
 nmap <silent> <leader>tg :TestVisit<CR>
 
+function! DebugNearest()
+  let g:test#go#runner = 'delve'
+  TestNearest
+  unlet g:test#go#runner
+endfunction
+nmap <silent> <leader>t<C-d> :call DebugNearest()<CR>
 
 " MatchTagAlways
 let g:mta_filetypes = {
@@ -398,6 +414,9 @@ let g:closetag_regions =  {
 \ 'typescript.tsx': 'jsxRegion,tsxRegion',
 \ 'javascript.jsx': 'jsxRegion',
 \ }
+
+" scratch.vim
+let g:scratch_persistence_file = '.scratch.vim'
 
 """"""""""""
 " FILETYPE "
@@ -420,7 +439,7 @@ autocmd Filetype ruby setlocal softtabstop=2 shiftwidth=2 tabstop=2
 "autocmd! Filetype javascript autocmd! BufWritePre * Neoformat
 
 " Markdown
-autocmd! Filetype markdown autocmd! BufWritePre * Neoformat
+"autocmd! Filetype markdown autocmd! BufWritePre * Neoformat
 
 " Perl
 autocmd! Filetype perl autocmd! BufWritePost * Neomake
@@ -530,7 +549,7 @@ set updatetime=300
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 " always show signcolumns
-set signcolumn=yes
+set signcolumn=yes:2
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -558,8 +577,21 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> ge <Plug>(coc-references)
 
-" Use K to show documentation in preview window
+" Use <leader>k to show documentation in preview window
 nnoremap <silent> <localleader>k :call CocAction('doHover')<CR>
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -567,7 +599,7 @@ nmap <leader>rr <Plug>(coc-refactor)
 
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format)
 " Show all diagnostics
 nnoremap <silent> <leader><space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions

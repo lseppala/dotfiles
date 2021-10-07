@@ -28,11 +28,7 @@
 
     rhh = reset --hard HEAD
 
-    sr = svn rebase
-    sf = svn fetch
-    mm = merge master
-
-    s = status -sb
+    s = status -sb -uno
     d = diff
     a = add
     co = checkout
@@ -87,5 +83,7 @@
 	token = !security find-internet-password -a lseppala -s github.com -l 'ghi token' -w
 [branch]
 	sort = -authordate
+[pull]
+	rebase = true
 [init]
 	defaultBranch = main
