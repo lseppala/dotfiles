@@ -1,0 +1,34 @@
+#!/bin/bash
+
+sudo apt-get update
+
+# Instructions from https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package
+install_neovim() {
+	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+	chmod u+x nvim.appimage
+
+	./nvim.appimage --appimage-extract
+	./squashfs-root/AppRun --version
+
+	mv squashfs-root /
+	ln -s /squashfs-root/AppRun /usr/bin/nvim
+}
+
+install_neovim_support() {
+	sudo apt-get install -y --no-install-recommends python3-neovim
+}
+
+install_tools() {
+	sudo apt-get install -y --no-install-recommends \
+		tmux \
+		jq \
+		ripgrep \
+		fzf \
+		fd-find \
+		shellcheck
+}
+
+
+install_neovim
+install_neovim_support
+install_apt_tools
