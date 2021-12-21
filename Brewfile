@@ -5,7 +5,6 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "stek29/idevice"
-tap "tomanthony/brews"
 brew "readline"
 brew "sqlite"
 brew "awscli"
@@ -41,7 +40,6 @@ brew "fzf"
 brew "gitlab-gem"
 brew "gitlab-runner"
 brew "gnu-sed"
-brew "go@1.12"
 brew "haskell-stack"
 brew "htop"
 brew "httpie"
@@ -75,6 +73,7 @@ brew "reattach-to-user-namespace"
 brew "ripgrep"
 brew "sloccount"
 brew "stow"
+brew "subversion"
 brew "telnet"
 brew "wireshark"
 brew "termshark"
@@ -89,9 +88,7 @@ brew "yarn"
 brew "youtube-dl"
 brew "yq"
 brew "c-bata/kube-prompt/kube-prompt"
-brew "tomanthony/brews/itermocil"
 cask "amethyst"
-cask "blackhole"
 cask "charles"
 cask "font-iosevka-nerd-font"
 cask "font-source-code-pro"
@@ -99,11 +96,9 @@ cask "iterm2"
 cask "jtool2"
 cask "launchbar"
 cask "nvalt"
-cask "oracle-jdk"
 cask "spotify"
 cask "virtualbox"
-cask "wireshark"
-mas "1Blocker", id: 1107421413
+mas "1Blocker", id: 1365531024
 mas "Dark Reader for Safari", id: 1438243180
 mas "Day One", id: 1055511498
 mas "Display Menu", id: 549083868
@@ -111,6 +106,7 @@ mas "Drafts", id: 1435957248
 mas "EasyRes", id: 688211836
 mas "Fantastical", id: 975937182
 mas "GarageBand", id: 682658836
+mas "GoLinks", id: 1478821913
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Kindle", id: 405399194
@@ -125,8 +121,7 @@ mas "Quiver", id: 866773894
 mas "Slack", id: 803453959
 mas "SnippetsLab", id: 1006087419
 mas "Studies", id: 1071676469
-mas "TickTick", id: 966085870
-mas "TogglDesktop", id: 957734279
+mas "Toggl Track", id: 957734279
 mas "Unibox", id: 702816521
 mas "Vimari", id: 1480933944
 mas "WhatsApp", id: 1147396723

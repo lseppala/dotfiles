@@ -10,5 +10,9 @@
     "usePlaceholders": true,
     "completeUnimported": true
   },
-  "coc.preferences.formatOnSaveFiletypes" : ["css", "Markdown", "typescript", "typescriptreact", "javascript", "javascriptreact"]
+  "coc.preferences.formatOnSaveFiletypes" : ["css", "typescript", "typescriptreact", "javascript", "javascriptreact", "ruby"],
+  "codeLens.enable": true,
+  "solargraph.useBundler": true,
+  "solargraph.formatting": true,
+  "solargraph.diagnostics": true
 }

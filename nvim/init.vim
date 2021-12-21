@@ -45,8 +45,9 @@ Plug 'mhinz/vim-grepper'
 
 "" Editing
 "" Auto-complete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'github/copilot.vim'
 
 "" Tag List
 Plug 'liuchengxu/vista.vim'
@@ -79,6 +80,8 @@ Plug 'rizzatti/dash.vim'
 
 "" Github
 Plug 'mattn/gist-vim'
+Plug 'pwntester/octo.nvim'
+
 ""requires
 Plug 'mattn/webapi-vim'
 
@@ -175,7 +178,7 @@ Plug 'kassio/neoterm'
 Plug 'simeji/winresizer'
 
 " Generate JsDoc from function signature with :JsDoc
-Plug 'heavenshell/vim-jsdoc', { 
+Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'], 
   \ 'do': 'make install'
 \}
@@ -188,16 +191,25 @@ Plug 'heavenshell/vim-jsdoc', {
 " Drawing boxes
 Plug 'gyim/vim-boxdraw'
 
+" Devicons
+Plug 'kyazdani42/nvim-web-devicons'
+
+" Fuzzy finder
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
+
+
+""""""""""""""""""""
+" General settings "
+""""""""""""""""""""
+
 " Stupid fix because nvim is getting <BS> for C-h
 " due to terminfo issues
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
 endif
-
-""""""""""""""""""""
-" General settings "
-""""""""""""""""""""
 
 
 set nobackup
@@ -554,9 +566,9 @@ set signcolumn=yes:2
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+	  \ pumvisible() ? "\<C-n>" :
+	  \ <SID>check_back_space() ? "\<TAB>" :
+	  \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
