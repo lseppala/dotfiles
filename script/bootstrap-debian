@@ -25,7 +25,8 @@ install_tools() {
 		ripgrep \
 		fzf \
 		fd-find \
-		shellcheck
+		shellcheck \
+		stow
 }
 
 
