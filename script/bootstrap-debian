@@ -26,7 +26,7 @@ install_latest_fish() {
 		| gpg --dearmor \
 		| sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
 	sudo apt update
-	sudo apt-get install fish
+	sudo apt-get install -y --no-install-recommends fish
 }
 
 install_tools() {
