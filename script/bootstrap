@@ -1,8 +1,6 @@
 #!/bin/sh
 
-WORKDIR=$(cd "$(dirname "$0")" "$0" && pwd)
-DOTFILES=$(cd "$WORKDIR/.." & pwd)
-
+WORKDIR=$(cd "$(dirname "$0")" "$0" && pwd) DOTFILES=$(cd "$WORKDIR/.." & pwd)
 stow_app_configs() {
 	CONFIG_DIR="$HOME/.config"
 	CONFIG_APPS="nvim fish ranger"
@@ -39,7 +37,7 @@ fi
 
 stow_app_configs
 include_gitconfig
-#nvim_plug_install
+nvim_plug_install
 #chsh_fish
 
 echo "=======Done======="
