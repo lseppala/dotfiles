@@ -32,14 +32,16 @@ install_latest_fish() {
 install_tools() {
 	sudo apt-get install -y --no-install-recommends \
 		bat \
-		jq \
-		ripgrep \
-		fzf \
+		fasd \
 		fd-find \
+		fzf \
+		jq \
+		npm \
+		rbenv \
+		ripgrep \
 		shellcheck \
 		stow \
 		tmux \
-		npm \
 
 }
 
