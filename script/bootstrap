@@ -21,7 +21,7 @@ include_gitconfig() {
 }
 
 nvim_plug_install() {
-	nvim +PlugInstall +CocInstall +qall
+	nvim +PlugInstall +exit +qall
 }
 
 chsh_fish() {
