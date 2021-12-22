@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -ue
+
+WORKDIR=$(cd "$(dirname "$0")" "$0" && pwd)
+
+install_homebrew() {
+	if ! which -s brew; then
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+		(cd "$WORKDIR/.." && brew bundle install)
+	fi
+}
+
+install_homebrew
