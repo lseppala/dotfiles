@@ -2,6 +2,8 @@
 
 WORKDIR=$(cd `dirname $0` && pwd)
 
-if [ -f /etc/debian_version]; then
+if [ -f /etc/debian_version ]; then
 	$WORKDIR/bootstrap-debian;
 fi
+
+echo "Done"

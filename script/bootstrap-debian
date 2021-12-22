@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 sudo apt-get update
 
 # Instructions from https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package
