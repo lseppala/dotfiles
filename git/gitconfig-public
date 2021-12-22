@@ -78,8 +78,6 @@
   program = gpg2
 [github]
     user = lseppala
-[url "git@github.com:"]
-    insteadOf = https://github.com/
 [ghi]
 	token = !security find-internet-password -a lseppala -s github.com -l 'ghi token' -w
 [branch]
