@@ -29,8 +29,15 @@ install_tools() {
 		shellcheck \
 		stow \
 		tmux \
+		npm \
 
 }
+
+install_yarn() {
+	# yarn now installed with corepack
+	npm install -g corepack
+}
+
 
 
 install_neovim

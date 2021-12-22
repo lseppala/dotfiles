@@ -337,8 +337,10 @@ nnoremap <leader>ag :exec("Rg \\b".expand("<cword>")."\\b")<CR>
 
 " Python
 
-let g:python2_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+"let g:python2_host_prog = '/usr/local/bin/python'
+if filereadable('/usr/local/bin/python3')
+	let g:python3_host_prog = '/usr/local/bin/python3'
+end
 
 "" Ctrl-P
 "let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden

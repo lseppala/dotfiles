@@ -22,6 +22,14 @@ include_gitconfig() {
 	git config --global include.path "$DOTFILES/git/gitconfig-public"
 }
 
+nvim_plug_install() {
+	nvim +PluginInstall +CocInstall +qall
+}
+
+chsh_fish() {
+	chsh -s $(which fish)
+}
+
 if [ "$(uname -s)" = "Darwin" ]; then
 	"$WORKDIR/bootstrap-macos"
 elif [ -f /etc/debian_version ]; then
@@ -31,5 +39,7 @@ fi
 
 stow_app_configs
 include_gitconfig
+#nvim_plug_install
+#chsh_fish
 
 echo "=======Done======="
