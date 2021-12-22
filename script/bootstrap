@@ -1,6 +1,7 @@
 #!/bin/sh
 
 WORKDIR=$(cd "$(dirname "$0")" "$0" && pwd)
+DOTFILES=$(cd "$WORKDIR/.." & pwd)
 
 stow_app_configs() {
 	CONFIG_DIR="$HOME/.config"
@@ -18,7 +19,7 @@ stow_app_configs() {
 }
 
 include_gitconfig() {
-	git config --global include.path "$WORKDIR/git/gitconfig-public"
+	git config --global include.path "$DOTFILES/git/gitconfig-public"
 }
 
 if [ "$(uname -s)" = "Darwin" ]; then
