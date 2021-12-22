@@ -18,6 +18,9 @@ stow_app_configs() {
 }
 
 stow_gitconfig() {
+	if [ -f "$HOME/.gitconfig" ]; then
+		mv "$HOME/.gitconfig" "$HOME/.gitconfig.old"
+	fi
     stow -t "$HOME" -S git
 }
 
