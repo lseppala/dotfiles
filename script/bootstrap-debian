@@ -16,21 +16,23 @@ install_neovim() {
 }
 
 install_neovim_support() {
-	sudo apt-get install -y --no-install-recommends python3-neovim
+	sudo pip3 install neovim
 }
 
 install_tools() {
 	sudo apt-get install -y --no-install-recommends \
-		tmux \
+		bat \
 		jq \
 		ripgrep \
 		fzf \
 		fd-find \
 		shellcheck \
-		stow
+		stow \
+		tmux \
+
 }
 
 
 install_neovim
 install_neovim_support
-install_apt_tools
+install_tools
