@@ -17,11 +17,8 @@ stow_app_configs() {
 	done
 }
 
-stow_gitconfig() {
-	if [ -f "$HOME/.gitconfig" -a ! -h "$HOME/.gitconfig" ]; then
-		mv "$HOME/.gitconfig" "$HOME/.gitconfig.old"
-	fi
-    stow -t "$HOME" -S git
+include_gitconfig() {
+	git config --global include.path "$WORKDIR/git/gitconfig-public"
 }
 
 if [ "$(uname -s)" = "Darwin" ]; then
@@ -32,6 +29,6 @@ fi
 
 
 stow_app_configs
-stow_gitconfig
+include_gitconfig
 
 echo "=======Done======="
