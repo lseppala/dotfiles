@@ -38,6 +38,6 @@ fi
 stow_app_configs
 include_gitconfig
 nvim_plug_install
-#chsh_fish
+chsh_fish
 
 echo "=======Done======="
