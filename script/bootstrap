@@ -23,7 +23,7 @@ include_gitconfig() {
 }
 
 nvim_plug_install() {
-	nvim +PluginInstall +CocInstall +qall
+	nvim +PlugInstall +CocInstall +qall
 }
 
 chsh_fish() {

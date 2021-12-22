@@ -19,6 +19,16 @@ install_neovim_support() {
 	sudo pip3 install neovim
 }
 
+install_latest_fish() {
+	echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_11/ /' \
+		| sudo tee /etc/apt/sources.list.d/shells:fish:release:3.list
+	curl -fsSL https://download.opensuse.org/repositories/shells:fish:release:3/Debian_11/Release.key \
+		| gpg --dearmor \
+		| sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_3.gpg > /dev/null
+	sudo apt update
+	sudo apt-get install fish
+}
+
 install_tools() {
 	sudo apt-get install -y --no-install-recommends \
 		bat \
@@ -43,3 +53,4 @@ install_yarn() {
 install_neovim
 install_neovim_support
 install_tools
+install_latest_fish
