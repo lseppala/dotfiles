@@ -72,7 +72,8 @@
 [push]
   default = current
 [user]
-  name = Lane Seppala
+	name = Lane Seppala
+	email = lseppala@users.noreply.github.com
 [gpg]
   program = gpg2
 [github]
@@ -87,3 +88,5 @@
 	rebase = true
 [init]
 	defaultBranch = main
+[credential]
+        helper = cache
