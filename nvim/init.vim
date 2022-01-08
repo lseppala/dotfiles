@@ -509,10 +509,10 @@ let g:codi#interpreters = {
 
 
 "naviation in terminal windows
-tnoremap <C-h> <C-\><C-n><C-h>
-tnoremap <C-j> <C-\><C-n><C-j>
-tnoremap <C-k> <C-\><C-n><C-k>
-tnoremap <C-l> <C-\><C-n><C-l>
+tnoremap <C-h> <C-\><C-n><C-w>h
+tnoremap <C-j> <C-\><C-n><C-w>j
+tnoremap <C-k> <C-\><C-n><C-w>k
+tnoremap <C-l> <C-\><C-n><C-w>l
 
 
 " neosnippet mappings
