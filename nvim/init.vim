@@ -552,9 +552,9 @@ let g:coc_global_extensions = [
 	\'coc-highlight',
 	\'coc-styled-components',
 	\'coc-tsserver',
+	\'coc-solargraph',
 	\]
 
-"coc-snippets", "coc-styled-components"]
 
 " Better display for messages
 set cmdheight=2
