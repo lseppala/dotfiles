@@ -25,7 +25,7 @@ nvim_plug_install() {
 }
 
 chsh_fish() {
-	chsh -s $(which fish)
+	sudo chsh -s $(which fish) $(whoami)
 }
 
 if [ "$(uname -s)" = "Darwin" ]; then
