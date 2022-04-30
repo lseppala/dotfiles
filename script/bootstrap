@@ -31,7 +31,7 @@ chsh_fish() {
 if [ "$(uname -s)" = "Darwin" ]; then
 	"$WORKDIR/bootstrap-macos"
 elif [ -f /etc/debian_version ]; then
-	"$WORKDIR/bootstrap-debian"
+	sudo "$WORKDIR/bootstrap-debian"
 fi
 
 
