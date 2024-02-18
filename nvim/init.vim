@@ -5,7 +5,7 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 call plug#begin('~/.config/nvim/plugged')
 
-" Processes
+"" Processes
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 " Fuzzy finder
@@ -29,6 +29,7 @@ Plug 'junegunn/seoul256.vim'
 Plug 'arcticicestudio/nord-vim' " https://www.nordtheme.com
 Plug 'jonathanfilip/vim-lucius' " https://twitter.com/garybernhardt/status/1298307925861994497
 Plug 'artanikin/vim-synthwave84'
+Plug 'folke/tokyonight.nvim'
 
 "" Auto-commenting
 Plug 'scrooloose/nerdcommenter'
@@ -43,11 +44,11 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 " Find and replace
 Plug 'mhinz/vim-grepper'
 
-"" Editing
-"" Auto-complete
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Editing
+" Auto-complete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 
 "" Tag List
 Plug 'liuchengxu/vista.vim'
@@ -63,6 +64,7 @@ Plug 'tpope/vim-abolish'
 
 "" Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'gregsexton/gitv'
 Plug 'airblade/vim-gitgutter'
 
@@ -198,6 +200,15 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
+" Search and jump anywhere on the screen (in buffer, between splits, etc)
+Plug 'ggandor/leap.nvim'
+
+"lua require('leap').add_default_mappings()
+
+
+
+
+
 call plug#end()
 
 
@@ -209,6 +220,7 @@ call plug#end()
 " due to terminfo issues
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
+	lua require('leap').add_default_mappings()
 endif
 
 
@@ -278,14 +290,17 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-colorscheme OceanicNext
+"colorscheme OceanicNext
 "colorscheme flattened_dark
 "colorscheme nord
 "colorscheme synthwave84
 "let g:lucius_contrast="high"
 "colorscheme lucius
+colorscheme tokyonight-night
 
 set clipboard+=unnamedplus
+" disable mouse
+set mouse=
 " enable mouse in normal, insert, and command line modes
 "set mouse=nic
 
@@ -295,6 +310,7 @@ set clipboard+=unnamedplus
 """"""""""
 " Normal mode
 nnoremap <CR> :noh<CR>
+nnoremap <space><tab> <C-^>
 nnoremap <space> :
 nnoremap Y y$
 nnoremap <leader>ss :%s/\v\s+$//<cr><C-o>:noh<cr>
@@ -354,6 +370,7 @@ end
 
 " fzf
 nnoremap <C-p> :Files<CR>
+nnoremap <leader>p :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>rg :exec("Rg \\b".expand("<cword>")."\\b")<CR>
 
@@ -432,6 +449,15 @@ let g:closetag_regions =  {
 " scratch.vim
 let g:scratch_persistence_file = '.scratch.vim'
 
+let g:scratch_no_mappings = 1
+nmap <leader>gs <plug>(scratch-insert-reuse)
+nmap <leader>gS <plug>(scratch-insert-clear)
+xmap <leader>gs <plug>(scratch-selection-reuse)
+xmap <leader>gS <plug>(scratch-selection-clear)
+
+" vim-pencil
+let g:pencil#textwidth = 74
+
 """"""""""""
 " FILETYPE "
 """"""""""""
@@ -444,6 +470,7 @@ au FileType haskell nmap <leader>sh :%!stylish-haskell<CR>
 
 " TypeScript
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+autocmd Filetype typescript setlocal expandtab softtabstop=2 shiftwidth=2 tabstop=2
 
 " Ruby
 autocmd! Filetype ruby autocmd! BufWritePost * Neomake
@@ -568,12 +595,12 @@ set signcolumn=yes:2
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? "\<C-n>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-function! s:check_back_space() abort
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -610,6 +637,9 @@ endfunction
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>rr <Plug>(coc-refactor)
+
+" take an action under cursor
+nmap <leader>do <Plug>(coc-codeaction)
 
 " Remap for format selected region
 vmap <leader>f  <Plug>(coc-format-selected)
