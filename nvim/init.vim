@@ -353,9 +353,12 @@ nnoremap <leader>ag :exec("Rg \\b".expand("<cword>")."\\b")<CR>
 
 " Python
 
-"let g:python2_host_prog = '/usr/local/bin/python'
-if filereadable('/usr/local/bin/python3')
-	let g:python3_host_prog = '/usr/local/bin/python3'
+if system("uname -m") == "arm64\n"
+  let g:python2_host_prog = '/opt/homebrew/bin/python'
+  let g:python3_host_prog = '/opt/homebrew/bin/python3'
+else
+  let g:python2_host_prog = '/usr/local/bin/python'
+  let g:python3_host_prog = '/usr/local/bin/python3'
 end
 
 "" Ctrl-P

@@ -1,0 +1,69 @@
+tap "c-bata/kube-prompt"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "stek29/idevice"
+tap "tomanthony/brews"
+brew "dash"
+brew "entr"
+brew "postgresql"
+brew "ephemeralpg"
+brew "exa"
+brew "fd"
+brew "figlet"
+brew "fish"
+brew "fzf"
+brew "htop"
+brew "httpie"
+brew "jq"
+brew "lnav"
+brew "mas"
+brew "mitmproxy"
+brew "mtr"
+brew "neovim"
+brew "ninja"
+brew "nmap"
+brew "node"
+brew "parallel"
+brew "perl"
+brew "prettier"
+brew "proxychains-ng"
+brew "pv"
+brew "pygments"
+brew "ranger"
+brew "reattach-to-user-namespace"
+brew "ripgrep"
+brew "stow"
+brew "tmux"
+brew "tree"
+brew "wget"
+brew "yamllint"
+brew "yarn"
+brew "youtube-dl"
+brew "yq"
+brew "c-bata/kube-prompt/kube-prompt"
+brew "tomanthony/brews/itermocil"
+cask "amethyst"
+cask "font-iosevka-nerd-font"
+cask "font-source-code-pro"
+cask "iterm2"
+cask "launchbar"
+cask "nvalt"
+cask "spotify"
+mas "1Blocker", id: 1107421413
+mas "Dark Reader for Safari", id: 1438243180
+mas "Fantastical", id: 975937182
+mas "Keynote", id: 409183694
+mas "Magnet", id: 441258766
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
+mas "Quiver", id: 866773894
+mas "Slack", id: 803453959
+mas "SnippetsLab", id: 1006087419
+mas "TogglDesktop", id: 957734279
+mas "Unibox", id: 702816521
+mas "WhatsApp", id: 1147396723
+mas "WireGuard", id: 1451685025
+mas "Xcode", id: 497799835
