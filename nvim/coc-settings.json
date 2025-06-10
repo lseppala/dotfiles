@@ -16,5 +16,9 @@
   "codeLens.separator": " ➤",
   "solargraph.useBundler": true,
   "solargraph.formatting": true,
-  "solargraph.diagnostics": true
+  "solargraph.diagnostics": true,
+  "python.formatting.autopep8Args": [
+    "--global-config=pycodestyle.cfg"
+  ],
+  "snippets.ultisnips.pythonPrompt": false
 }

@@ -40,6 +40,11 @@ Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 "Plug 'kien/ctrlp.vim'
 "Plug 'FelikZ/ctrlp-py-matcher'
 "Plug 'rking/ag.vim'
+"
+" Folding the containing function
+Plug 'nvim-treesitter/nvim-treesitter-context'
+"
+Plug 'stevearc/oil.nvim'
 
 " Find and replace
 Plug 'mhinz/vim-grepper'
@@ -125,6 +130,8 @@ Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'javascript.jsx', 'typescript.
 " Auto-closes tags
 Plug 'alvan/vim-closetag', { 'for': ['html', 'javascript.jsx', 'typescript.tsx'] }
 
+Plug 'AndrewRadev/deleft.vim'
+
 "" Aligning
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
 Plug 'junegunn/vim-easy-align'
@@ -203,14 +210,20 @@ Plug 'nvim-telescope/telescope.nvim'
 " Search and jump anywhere on the screen (in buffer, between splits, etc)
 Plug 'ggandor/leap.nvim'
 
-"lua require('leap').add_default_mappings()
+
+" Errors and diagnostics
+Plug 'folke/trouble.nvim'
 
 
+" Viewing nvim startup time files generated with --startuptime <filename>
+Plug 'dstein64/vim-startuptime'
+
+" Plugin for getting PR under cursor
+Plug 'lseppala/praise.nvim'
 
 
 
 call plug#end()
-
 
 """"""""""""""""""""
 " General settings "
@@ -221,13 +234,26 @@ call plug#end()
 if has('nvim')
     nmap <BS> :TmuxNavigateLeft<cr>
 	lua require('leap').add_default_mappings()
+	lua require("oil").setup()
 endif
+
+lua require('praise').setup({ keymap = '<leader>pr' })
+
+lua << EOF
+vim.api.nvim_create_user_command(
+  'Browse',
+  function (opts)
+    vim.fn.system { 'open', opts.fargs[1] }
+  end,
+  { nargs = 1 }
+)
+EOF
 
 
 set nobackup
 set noswapfile
 set number
-"set relativenumber
+set relativenumber
 set noexrc
 set nowrap
 set tildeop
@@ -303,6 +329,8 @@ set clipboard+=unnamedplus
 set mouse=
 " enable mouse in normal, insert, and command line modes
 "set mouse=nic
+"
+set conceallevel=0 " don't hide any text
 
 
 """"""""""
@@ -314,8 +342,10 @@ nnoremap <space><tab> <C-^>
 nnoremap <space> :
 nnoremap Y y$
 nnoremap <leader>ss :%s/\v\s+$//<cr><C-o>:noh<cr>
-noremap ;; :%s:\v::<Left><Left>
-noremap ;l :%s:::<Left>
+nnoremap ;; :%s:\v::<Left><Left>
+nnoremap ;l :%s:::<Left>
+vnoremap ;; :s:\v::<Left><Left>
+vnoremap ;l :s:::<Left>
 nnoremap <leader><leader> <C-^>
 nnoremap ;w :w<CR>
 nnoremap ;q :wq<CR>
@@ -388,6 +418,7 @@ map <F3> :NERDTreeFind<CR>
 " Fugitive
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
+vnoremap <leader>gb :GBrowse!<cr>
 
 " Nuake
 nnoremap <F5> :Nuake<CR>
@@ -460,6 +491,13 @@ xmap <leader>gS <plug>(scratch-selection-clear)
 
 " vim-pencil
 let g:pencil#textwidth = 74
+let g:pencil#wrapModeDefault = 'soft'
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType text         call pencil#init()
+augroup END
 
 """"""""""""
 " FILETYPE "

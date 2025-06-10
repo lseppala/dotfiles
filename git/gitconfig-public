@@ -61,6 +61,13 @@
 
     connect = ! git branch --set-upstream-to=origin/$(git cb) $(git cb)
 
+	bb = ! ~/dotfiles/git/better-branch.sh
+	wt = worktree
+	wl = worktree list
+	wa = worktree add
+
+	w = "!f() { git add -u && git commit -m \"$*\" && git push; }; f"
+
 [branch.current.dev]
     rebase = true
 [branch.current.qa]
