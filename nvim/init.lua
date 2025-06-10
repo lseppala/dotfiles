@@ -242,8 +242,11 @@ vim.opt.smartcase = true
 vim.opt.listchars = { tab = '▎ ', trail = '·' }
 vim.opt.list = true
 
--- Color column
-vim.opt.colorcolumn = '82'
+-- Set highlight group
+vim.api.nvim_set_hl(0, 'ColorColumn', { ctermbg = 'red' })
+
+-- Add match (still need to use vim.fn for matchadd)
+vim.fn.matchadd('ColorColumn', '\\%82v', 100)
 
 -- Colorscheme
 vim.opt.termguicolors = true
