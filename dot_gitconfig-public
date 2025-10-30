@@ -1,0 +1,98 @@
+[core]
+    editor = nvim
+    autocrlf = input
+    excludesfile = ~/.gitignore
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red
+    new = cyan
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[alias]
+    c = commit
+    ca = commit -a
+    cm = commit -m
+    cma = commit -a -m
+    cam = commit --amend
+
+    rhh = reset --hard HEAD
+
+    s = status -sb -uno
+    d = diff
+    a = add
+    co = checkout
+    cob = checkout -b
+    b = branch
+    f = fetch
+    r = reset
+    l = log
+    p = push
+    pr = pull --rebase
+
+    ri = rebase --interactive
+
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lg = log -15 --color --graph --pretty=format:'%C(yellow)%h%Creset -%C(cyan)%d%Creset %s %Cred(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+
+    an = annex
+
+    h = rev-parse HEAD
+    hs = rev-parse --short HEAD
+    cb = rev-parse --abbrev-ref HEAD
+    rip = ! git reset --hard origin/"$(git rev-parse --abbrev-ref HEAD)"
+    oops = ! git commit --amend -C $(git rev-parse HEAD) && git push --force
+    rab = rebase --abort
+    rc = rebase --continue
+    p-f = push --force
+
+    ribs = ! git rebase -i $(git merge-base $(git cb) master)
+
+    connect = ! git branch --set-upstream-to=origin/$(git cb) $(git cb)
+
+	bb = ! ~/dotfiles/git/better-branch.sh
+	wt = worktree 
+	wl = worktree list
+	wa = worktree add
+    wat = "!f() { if [[ $(basename $(dirname \"$PWD\")) == lsep ]]; then target_dir='../'; else target_dir='../lsep'; fi; if [ -d \"$target_dir/$1\" ]; then cd \"$target_dir/$1\"; else git worktree add -b lsep/$1 $target_dir/$1; cd $target_dir/$1; fi; }; f"
+
+	w = "!f() { git add -u && git commit -m \"$*\" && git push; }; f"
+
+[branch.current.dev]
+    rebase = true
+[branch.current.qa]
+    rebase = true
+[diff]
+  tool = vimdiff
+[merge]
+    tool = vimdiff
+[push]
+  default = current
+[user]
+	name = Lane Seppala
+	email = lseppala@users.noreply.github.com
+[gpg]
+  program = gpg2
+[github]
+    user = lseppala
+[ghi]
+	token = !security find-internet-password -a lseppala -s github.com -l 'ghi token' -w
+[branch]
+	sort = -authordate
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main
+[credential]
+        helper = cache
