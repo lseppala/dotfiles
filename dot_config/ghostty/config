@@ -1,0 +1,34 @@
+macos-non-native-fullscreen = true
+keybind = global:option+grave_accent=toggle_quick_terminal
+
+# from https://romanzipp.com/blog/ghostty-zellij-fish-shell
+## START
+
+mouse-scroll-multiplier = 0.5
+
+window-decoration = true
+window-padding-x = 8
+window-padding-y = 8
+
+# theme = dark:catppuccin-frappe,light:catppuccin-latte
+# theme = catppuccin-frappe
+font-feature = -liga
+
+macos-titlebar-style = transparent
+
+# Unbind CMD+... keys so they will be forwarded to Zellij
+keybind = cmd+t=unbind
+keybind = cmd+n=unbind
+keybind = cmd+c=unbind
+keybind = cmd+w=unbind
+keybind = cmd+opt+left=unbind
+keybind = cmd+opt+right=unbind
+keybind = cmd+shift+[=unbind
+keybind = cmd+shift+]=unbind
+
+shell-integration = fish
+## END
+
+
+## Custom cursor shader
+#custom-shader = shaders/cursor_blaze.glsl
