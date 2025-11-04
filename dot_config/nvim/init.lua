@@ -116,25 +116,6 @@ require("lazy").setup({
 
   -- Markdown
   { "iamcco/markdown-preview.nvim", build = "cd app & yarn install" },
-  {
-      "yousefhadder/markdown-plus.nvim",
-      ft = "markdown",
-      config = function()
-          require("markdown-plus").setup({
-                  -- Configuration options (all optional)
-                  enabled = true,
-                  features = {
-                      list_management = true,  -- Enable list management features
-                      text_formatting = true,  -- Enable text formatting features
-                      headers_toc = true,      -- Enable headers and TOC features
-                      links = true,            -- Enable link management features
-                  },
-                  keymaps = {
-                      enabled = true,  -- Enable default keymaps
-                  },
-              })
-      end,
-  },
 
   -- Live coding
   "metakirby5/codi.vim",
@@ -281,7 +262,8 @@ vim.opt.winwidth = 84
 
 -- Nvim-specific setup
 if vim.fn.has('nvim') == 1 then
-  require('leap').add_default_mappings()
+  vim.keymap.set({'n', 'x', 'o'}, 's', '<Plug>(leap)')
+  vim.keymap.set('n',             'S', '<Plug>(leap-from-window)')
   require('oil').setup()
 end
 
