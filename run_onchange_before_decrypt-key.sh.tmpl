@@ -1,0 +1,10 @@
+#!/bin/sh
+# This script runs automatically on 'chezmoi apply'
+KEY_FILE="{{ .chezmoi.homeDir }}/.config/chezmoi/key.txt"
+
+if [ ! -f "$KEY_FILE" ]; then
+    mkdir -p "$(dirname "$KEY_FILE")"
+    echo "Decrypting age key..."
+    chezmoi age decrypt --output "$KEY_FILE" --passphrase "{{ .chezmoi.sourceDir }}/key.txt.age"
+    chmod 600 "$KEY_FILE"
+fi
